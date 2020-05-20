@@ -1,0 +1,17 @@
+def FLAVOR_PROPERTY_KEY = "flavor.filter"
+def properties = new Properties()
+properties.load(new FileReader(rootProject.file("gradle.properties")))
+def flavorFilter = properties.getProperty(FLAVOR_PROPERTY_KEY)
+
+ext.languagesFlavors = [
+        "master",
+        "Java",
+        "Kotlin",
+].findAll { flavor ->
+    if (properties.containsKey(FLAVOR_PROPERTY_KEY))
+        return flavorFilter.toLowerCase().contains(flavor.toLowerCase())
+    else
+        return true
+}.collect {
+    it.toLowerCase()
+}
