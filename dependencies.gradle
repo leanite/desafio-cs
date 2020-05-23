@@ -1,0 +1,5 @@
+ext {
+    gsonVersion = "2.8.6"
+
+    googleGson = "com.google.code.gson:gson:$gsonVersion"
+}
