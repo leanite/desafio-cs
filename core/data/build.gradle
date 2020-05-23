@@ -3,5 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 dependencies {
+    api project(':core:model')
 
+    implementation retrofitDependencies.values()
 }
