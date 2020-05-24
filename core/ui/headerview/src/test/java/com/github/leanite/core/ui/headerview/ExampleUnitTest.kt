@@ -1,4 +1,4 @@
-package com.github.leanite.repositories
+package com.github.leanite.core.ui.headerview
 
 import org.junit.Test
 

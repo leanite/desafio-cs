@@ -1,1 +1,8 @@
-<manifest package="com.github.leanite.repositories" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.github.leanite.desafio.features.repositories">
+
+    <application>
+        <activity android:name=".RepositoryListActivity"/>
+    </application>
+</manifest>
+

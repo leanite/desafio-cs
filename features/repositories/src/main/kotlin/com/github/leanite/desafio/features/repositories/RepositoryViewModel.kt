@@ -1,4 +1,4 @@
-package com.github.leanite.repositories
+package com.github.leanite.desafio.features.repositories
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

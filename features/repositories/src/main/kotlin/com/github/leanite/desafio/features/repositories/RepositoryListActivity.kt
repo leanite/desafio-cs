@@ -1,4 +1,4 @@
-package com.github.leanite.repositories
+package com.github.leanite.desafio.features.repositories
 
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,26 +9,32 @@ import com.github.leanite.model.Repository
 import com.github.leanite.model.User
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_repository_list.*
-import kotlinx.android.synthetic.main.toolbar.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 import java.lang.Exception
 
 class RepositoryListActivity : BaseActivity() {
 
-    private val viewModel: RepositoryViewModel
+    private val viewModel: RepositoryViewModel by viewModel()
 
     private lateinit var repositoriesAdapter: RepositoryListAdapter
     private lateinit var endlessScrollListener: EndlessScrollListener
 
     override fun getActivityLayout(): Int = R.layout.activity_repository_list
 
+    override fun setupInjection() = RepositoryModule.inject()
+
     override fun onSetupDone() {
         getRepositories()
     }
 
     override fun setupToolbar() {
-        toolbar.title = "Java" //TODO flavor language
-        setSupportActionBar(toolbar)
+        super.setupToolbar()
+        supportActionBar?.let { actionBar ->
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeButtonEnabled(true)
+            actionBar.title = "Java" //TODO flavor language
+        }
     }
 
     override fun setupViews() {
@@ -130,6 +136,7 @@ class RepositoryListActivity : BaseActivity() {
     }
 
     private fun showError(exception: Exception) {
+        exception.printStackTrace()
         exception.message?.let {
             Snackbar.make(rvRepositoryList, it, Snackbar.LENGTH_LONG).show()
         }

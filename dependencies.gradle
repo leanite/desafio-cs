@@ -1,11 +1,17 @@
 ext {
     gsonVersion = "2.8.6"
     retrofitVersion = "2.6.0"
+    koinVersion = "2.0.1"
 
     googleGson = "com.google.code.gson:gson:$gsonVersion"
 
     retrofitDependencies = [
             retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    ]
+
+    koinDependencies = [
+            koinAndroid: "org.koin:koin-android:$koinVersion",
+            koinViewModel: "org.koin:koin-androidx-viewmodel:$koinVersion"
     ]
 }

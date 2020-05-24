@@ -9,12 +9,13 @@
     android:paddingLeft="@dimen/spacing2x"
     android:paddingBottom="@dimen/spacing1x">
 
-    <include
+    <com.github.leanite.core.ui.headerview.HeaderView
         android:id="@+id/containerMainInfo"
-        layout="@layout/item_list_main_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivStars"

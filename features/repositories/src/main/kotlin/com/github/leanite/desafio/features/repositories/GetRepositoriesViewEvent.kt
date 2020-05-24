@@ -1,4 +1,4 @@
-package com.github.leanite.repositories
+package com.github.leanite.desafio.features.repositories
 
 import com.github.leanite.model.Repository
 import java.lang.Exception

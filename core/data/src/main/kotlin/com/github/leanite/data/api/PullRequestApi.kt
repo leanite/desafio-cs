@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface PullRequestApi {
     @GET("repos/{username}/{repositoryName}/pulls?")
-    fun getPullRequests(
+    suspend fun getPullRequests(
         @Path("username") username: String,
         @Path("repositoryName") repositoryName: String,
         @Query("state") state: String,
@@ -16,7 +16,7 @@ interface PullRequestApi {
     ): List<PullRequest>
 
     @GET("search/issues?")
-    fun getAmountPullRequests(
+    suspend fun getAmountPullRequests(
         @Query(value = "q", encoded = true) query: String
     ): GetAmountPullRequestsResponse
 }

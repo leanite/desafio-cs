@@ -6,4 +6,6 @@ include ':core:test'
 include ':core:model'
 include ':core:data'
 
+include ':core:ui:headerview'
+
 include ':features:repositories'
