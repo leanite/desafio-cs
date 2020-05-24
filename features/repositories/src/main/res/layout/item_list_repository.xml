@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/spacing1x"
+    android:paddingRight="@dimen/spacing2x"
+    android:paddingLeft="@dimen/spacing2x"
+    android:paddingBottom="@dimen/spacing1x">
+
+    <include
+        android:id="@+id/containerMainInfo"
+        layout="@layout/item_list_main_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivStars"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/icon_default_size"
+        android:layout_marginTop="@dimen/spacing1x"
+        android:src="@drawable/ic_github_star"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/containerMainInfo"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvStars"
+        style="@style/SimpleValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing0_5x"
+        android:layout_marginEnd="@dimen/spacing2x"
+        app:layout_constraintTop_toTopOf="@+id/ivStars"
+        app:layout_constraintStart_toEndOf="@+id/ivStars"
+        app:layout_constraintEnd_toStartOf="@+id/ivForks"
+        tools:text="543"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivForks"
+        android:layout_width="@dimen/spacing2x"
+        android:layout_height="@dimen/spacing2x"
+        android:layout_margin="2dp"
+        app:srcCompat="@drawable/ic_github_forked"
+        app:layout_constraintTop_toTopOf="@+id/ivStars"
+        app:layout_constraintStart_toEndOf="@+id/tvStars"
+        app:layout_constraintEnd_toStartOf="@+id/tvForks"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvForks"
+        style="@style/SimpleValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing0_5x"
+        android:layout_marginEnd="@dimen/spacing2x"
+        app:layout_constraintTop_toTopOf="@+id/ivStars"
+        app:layout_constraintStart_toEndOf="@+id/ivForks"
+        app:layout_constraintEnd_toStartOf="@+id/ivIssues"
+        tools:text="222"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIssues"
+        android:layout_width="@dimen/spacing2x"
+        android:layout_height="@dimen/spacing2x"
+        android:layout_margin="2dp"
+        app:srcCompat="@drawable/ic_github_issue"
+        app:layout_constraintTop_toTopOf="@+id/ivStars"
+        app:layout_constraintStart_toEndOf="@+id/tvForks"
+        app:layout_constraintEnd_toStartOf="@+id/tvIssues"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvIssues"
+        style="@style/SimpleValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing0_5x"
+        android:layout_marginEnd="@dimen/spacing2x"
+        app:layout_constraintTop_toTopOf="@+id/ivStars"
+        app:layout_constraintStart_toEndOf="@+id/ivIssues"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="13"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
