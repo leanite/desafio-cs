@@ -10,6 +10,7 @@ buildscript {
         sdkTargetVersion = 29
         sdkMinVersion = 21
 
+        orchestrator = "ANDROIDX_TEST_ORCHESTRATOR"
         testInstrumentationClass = "androidx.test.runner.AndroidJUnitRunner"
         kotlin_version = '1.3.61'
     }
@@ -65,10 +66,25 @@ subprojects {
                         main.assets.srcDir "${project.projectDir}/flavorSrc/$name/assets"
                     }
                 }
+
                 sourceSets {
                     main.java.srcDirs += 'src/main/kotlin'
                     test.java.srcDirs += 'src/test/kotlin'
                     androidTest.java.srcDirs += 'src/androidTest/kotlin'
+                }
+
+                testOptions {
+                    execution orchestrator
+                    unitTests.all {
+                        setIgnoreFailures(true)
+                    }
+
+                    unitTests {
+                        includeAndroidResources = true
+                        returnDefaultValues = true
+
+                    }
+                    animationsDisabled = true
                 }
             }
         }

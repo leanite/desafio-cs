@@ -19,7 +19,9 @@ class RepositoryViewModel(
     val repositories: MutableList<Repository> = ArrayList()
     var currentPage: Int = 1
 
-    fun getRepositories(pageNumber: Int) { //TODO: loading e timeout!!
+    fun getRepositories(pageNumber: Int) { //TODO: timeout!!
+        getRepositoriesEvent.value = GetRepositoriesViewEvent.Loading(true)
+
         viewModelScope.launch {
             try {
                 val response = getRepositoriesInteractor.execute(pageNumber)
@@ -27,6 +29,8 @@ class RepositoryViewModel(
                 getRepositoriesEvent.value = GetRepositoriesViewEvent.Success(response)
             } catch (exception: Exception) {
                 getRepositoriesEvent.value = GetRepositoriesViewEvent.Error(exception)
+            } finally {
+                getRepositoriesEvent.value = GetRepositoriesViewEvent.Loading(false)
             }
         }
     }

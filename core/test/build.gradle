@@ -3,5 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 dependencies {
-
+    api testDependencies.values()
+    api (robolectric) {
+        exclude group: 'com.google.auto.service', module: 'auto-service'
+        exclude group: 'com.google.protobuf', module: 'protobuf-java'
+    }
+    api robolectricAnnotations
+    api retrofitDependencies.values()
+    api googleGson
 }

@@ -1,5 +1,6 @@
 package com.github.leanite.desafio.features.repositories
 
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.leanite.core.base.BaseActivity
@@ -15,10 +16,8 @@ import java.lang.Exception
 
 class RepositoryListActivity : BaseActivity() {
 
-    private val viewModel: RepositoryViewModel by viewModel()
-
-    private lateinit var repositoriesAdapter: RepositoryListAdapter
     private lateinit var endlessScrollListener: EndlessScrollListener
+    private val viewModel: RepositoryViewModel by viewModel()
 
     override fun getActivityLayout(): Int = R.layout.activity_repository_list
 
@@ -45,8 +44,10 @@ class RepositoryListActivity : BaseActivity() {
 
     override fun setupObservers() {
         viewModel.viewGetRepositoriesEvent.observe(this, Observer {
-            refreshContainer.isRefreshing = false
-            when(it) {
+            when(it) { //TODO: timeout
+                is GetRepositoriesViewEvent.Loading -> {
+                    refreshContainer.isRefreshing = it.show
+                }
                 is GetRepositoriesViewEvent.Success -> updateRepositories(it.repositories)
                 is GetRepositoriesViewEvent.Error -> showError(it.exception)
             }
@@ -57,18 +58,19 @@ class RepositoryListActivity : BaseActivity() {
         refreshContainer.setOnRefreshListener {
             viewModel.resetPage()
             viewModel.clearRepositories()
+            rvRepositoryList.adapter?.notifyDataSetChanged()
             endlessScrollListener.reset()
             getRepositories()
         }
 
         refreshContainer.setColorSchemeColors(
-            resources.getColor(R.color.colorPrimary),
-            resources.getColor(R.color.colorAccent)
+            ContextCompat.getColor(this, R.color.colorPrimary),
+            ContextCompat.getColor(this, R.color.colorAccent)
         )
     }
 
     private fun setupRepositoriesRecyclerViewAdapter() {
-        repositoriesAdapter = RepositoryListAdapter(
+        val repositoriesAdapter = RepositoryListAdapter(
             viewModel.repositories,
             onItemClick = { position: Int ->
                 goToPullRequestActivity(viewModel.repositories[position])
@@ -77,6 +79,7 @@ class RepositoryListActivity : BaseActivity() {
                 goToUserDetailsActivity(viewModel.repositories[position].owner)
             }
         )
+        rvRepositoryList.adapter = repositoriesAdapter
     }
 
     private fun setupRepositoriesRecyclerView() {
@@ -85,7 +88,6 @@ class RepositoryListActivity : BaseActivity() {
             getRepositories()
         }
         rvRepositoryList.layoutManager = LinearLayoutManager(this)
-        rvRepositoryList.adapter = repositoriesAdapter
         rvRepositoryList.addItemDecoration(ListItemDecoration(getDrawable(R.drawable.item_list_divider)))
         rvRepositoryList.addOnScrollListener(endlessScrollListener)
     }
@@ -127,17 +129,15 @@ class RepositoryListActivity : BaseActivity() {
 
     private fun updateRepositories(repositories: List<Repository>) {
         viewModel.appendRepositories(repositories)
-        repositoriesAdapter.notifyDataSetChanged()
+        rvRepositoryList.adapter?.notifyDataSetChanged()
     }
 
     private fun getRepositories() {
-        refreshContainer.isRefreshing = true
         viewModel.getRepositories(viewModel.currentPage)
     }
 
     private fun showError(exception: Exception) {
-        exception.printStackTrace()
-        exception.message?.let {
+        exception.message?.let { //TODO: remover mensagem de exception aqui
             Snackbar.make(rvRepositoryList, it, Snackbar.LENGTH_LONG).show()
         }
     }

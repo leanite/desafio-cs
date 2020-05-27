@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RepositoryApi {
-    @GET("search/repositories?q=language:Kotlin&sort=stars")
+    @GET("search/repositories?q=language:Kotlin&sort=stars") //TODO:parametrizar linguagem
     suspend fun getRepositoriesAtPageNumber(
         @Query("page") pageNumber: Int): GetRepositoriesResponse
 

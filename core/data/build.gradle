@@ -7,4 +7,5 @@ dependencies {
 
     implementation koinDependencies.values()
     implementation retrofitDependencies.values()
+    implementation okHttpLogging
 }
